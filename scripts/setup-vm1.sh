@@ -25,7 +25,7 @@ echo "AIOps VM1 Setup - Monitoring Stack"
 echo "=========================================="
 
 # Variables
-PROJECT_PATH="/opt/aiops-project"
+PROJECT_PATH="/opt/aiops-platform"
 VM2_IP="${1:-192.168.112.132}"
 REPO_URL="${2:-https://github.com/kuldeeprana2012/aiops-platform.git}"
 

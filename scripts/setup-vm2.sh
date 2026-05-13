@@ -24,7 +24,7 @@ echo "AIOps VM2 Setup - Application Servers"
 echo "=========================================="
 
 # Variables
-PROJECT_PATH="/opt/aiops-project"
+PROJECT_PATH="/opt/aiops-platform"
 VM1_IP="${1:-192.168.112.130}"
 REPO_URL="${2:-https://github.com/kuldeeprana2012/aiops-platform.git}"
 
