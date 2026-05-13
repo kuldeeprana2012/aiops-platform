@@ -23,10 +23,10 @@ groups:
 
       - alert: LogErrorSpike
         expr: |
-          sum by (job) (rate({job="app_logs"} |= "ERROR" [5m])) > 10
+          increase(http_requests_total{status="500"}[5m]) > 10
         for: 5m
         labels:
           severity: warning
         annotations:
-          summary: "Error log spike detected"
-          description: "Frequent error log entries were observed in the application logs."
+          summary: "Error rate spike detected"
+          description: "High number of server errors detected in the last 5 minutes."

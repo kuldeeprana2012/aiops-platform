@@ -18,6 +18,9 @@ schema_config:
     - from: 2020-10-24
       store: boltdb-shipper
       object_store: filesystem
+
+common:
+  path_prefix: /loki
       schema: v11
       index:
         prefix: index_
