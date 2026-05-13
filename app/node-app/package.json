@@ -1,0 +1,13 @@
+{
+  "name": "aioops-node-app",
+  "version": "1.0.0",
+  "description": "Node.js sample app for AIOps metrics and logs.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "prom-client": "^16.2.0"
+  }
+}

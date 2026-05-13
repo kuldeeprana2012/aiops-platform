@@ -1,0 +1,29 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'aioops'
+
+rule_files:
+  - /etc/prometheus/alert-rules.yml
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'node_app'
+    metrics_path: /metrics
+    static_configs:
+      # Replace this address with the VM2 application host if apps are deployed on a separate VM.
+      - targets: ['192.168.112.132:4000']
+
+  - job_name: 'python_app'
+    metrics_path: /metrics
+    static_configs:
+      # Replace this address with the VM2 application host if apps are deployed on a separate VM.
+      - targets: ['192.168.112.132:5000']
+
+  - job_name: 'node_exporter'
+    static_configs:
+      - targets: ['192.168.112.132:9100']

@@ -1,0 +1,41 @@
+name: AIOps CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Node app image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/aioops-node-app:latest ./app/node-app
+
+      - name: Build Python app image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/aioops-python-app:latest ./app/python-app
+
+      - name: Build AI engine image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/aioops-ai-engine:latest ./ai-engine
+
+      - name: Log in to Docker Hub
+        env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          echo "$DOCKER_PASSWORD" | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: Push images
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/aioops-node-app:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/aioops-python-app:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/aioops-ai-engine:latest

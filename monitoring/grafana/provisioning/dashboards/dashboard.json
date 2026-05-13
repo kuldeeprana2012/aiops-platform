@@ -1,0 +1,76 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "#f0c419",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "iteration": 1687615474666,
+  "links": [],
+  "panels": [
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {"defaults": {},"overrides": []},
+      "gridPos": {"h": 8,"w": 12,"x": 0,"y": 0},
+      "id": 2,
+      "options": {"legend": {"displayMode": "list","placement": "bottom"}},
+      "title": "HTTP Request Rate",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(http_requests_total[1m])) by (job)",
+          "legendFormat": "{{job}}"
+        }
+      ]
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {"defaults": {},"overrides": []},
+      "gridPos": {"h": 8,"w": 12,"x": 12,"y": 0},
+      "id": 3,
+      "options": {"legend": {"displayMode": "list","placement": "bottom"}},
+      "title": "5xx Error Rate",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "increase(http_requests_total{status_code=~\"5..\"}[5m]) / increase(http_requests_total[5m])",
+          "legendFormat": "Error Rate"
+        }
+      ]
+    },
+    {
+      "datasource": "Loki",
+      "fieldConfig": {"defaults": {},"overrides": []},
+      "gridPos": {"h": 8,"w": 24,"x": 0,"y": 8},
+      "id": 4,
+      "options": {},
+      "title": "Application Error Logs",
+      "type": "logs",
+      "targets": [
+        {
+          "expr": "{job=\"app_logs\"} |~ \"ERROR|CRITICAL\""
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 35,
+  "style": "dark",
+  "tags": ["AIOps","Monitoring"],
+  "templating": {"list": []},
+  "time": {"from": "now-1h","to": "now"},
+  "timepicker": {"refresh_intervals": ["5s","10s","30s","1m","5m","15m"],"time_options": ["5m","15m","1h","6h","12h","24h","2d","7d","30d"]},
+  "title": "AIOps Essentials Dashboard",
+  "uid": "aio-ops-dashboard",
+  "version": 1
+}

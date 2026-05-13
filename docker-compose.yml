@@ -1,0 +1,119 @@
+version: '3.9'
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: aiops_prometheus
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./monitoring/prometheus/alert-rules.yml:/etc/prometheus/alert-rules.yml:ro
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.external-url=http://localhost:9090'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=15d'
+    ports:
+      - '9090:9090'
+    networks:
+      - aiops-net
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: aiops_grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:%(http_port)s
+      - GF_ANALYTICS_REPORTING_ENABLED=false
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - grafana-storage:/var/lib/grafana
+    ports:
+      - '3000:3000'
+    depends_on:
+      - prometheus
+      - loki
+    networks:
+      - aiops-net
+
+  loki:
+    image: grafana/loki:2.9.3
+    container_name: aiops_loki
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./monitoring/loki/loki-config.yaml:/etc/loki/local-config.yaml:ro
+      - loki-storage:/loki
+    ports:
+      - '3100:3100'
+    networks:
+      - aiops-net
+
+  promtail:
+    image: grafana/promtail:latest
+    container_name: aiops_promtail
+    volumes:
+      - /var/log:/var/log:ro
+      - ./app:/app:ro
+      - ./monitoring/promtail/promtail-config.yaml:/etc/promtail/config.yml:ro
+    depends_on:
+      - loki
+    networks:
+      - aiops-net
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: aiops_alertmanager
+    volumes:
+      - ./monitoring/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+    ports:
+      - '9093:9093'
+    depends_on:
+      - ai-engine
+    networks:
+      - aiops-net
+
+  node-app:
+    build: ./app/node-app
+    container_name: aiops_node_app
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./app/node-app:/usr/src/app
+    networks:
+      - aiops-net
+
+  python-app:
+    build: ./app/python-app
+    container_name: aiops_python_app
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./app/python-app:/usr/src/app
+    networks:
+      - aiops-net
+
+  ai-engine:
+    build: ./ai-engine
+    container_name: aiops_ai_engine
+    ports:
+      - '8080:8080'
+    environment:
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - OLLAMA_URL=${OLLAMA_URL}
+    depends_on:
+      - loki
+      - prometheus
+    networks:
+      - aiops-net
+
+volumes:
+  grafana-storage:
+  loki-storage:
+
+networks:
+  aiops-net:
+    driver: bridge
