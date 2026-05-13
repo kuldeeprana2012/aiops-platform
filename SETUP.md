@@ -155,7 +155,7 @@ chmod +x scripts/setup-vm1.sh
 
 # Run with VM2 IP as parameter
 # Usage: setup-vm1.sh [VM2_IP] [REPO_URL]
-bash scripts/setup-vm1.sh 192.168.100.11 https://github.com/yourusername/aiops-platform.git
+bash scripts/setup-vm1.sh 192.168.100.11 https://github.com/kuldeeprana2012/aiops-platform.git
 ```
 
 This script will:
@@ -172,7 +172,7 @@ This script will:
 chmod +x scripts/setup-vm2.sh
 
 # Run with repo URL as parameter
-bash scripts/setup-vm2.sh https://github.com/yourusername/aiops-platform.git
+bash scripts/setup-vm2.sh https://github.com/kuldeeprana2012/aiops-platform.git
 ```
 
 This script will:

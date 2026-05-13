@@ -181,12 +181,12 @@ bash scripts/quick-start.sh
 
 **On VM1:**
 ```bash
-bash scripts/setup-vm1.sh 192.168.100.11 https://github.com/yourusername/aiops-platform.git
+bash scripts/setup-vm1.sh 192.168.100.11 https://github.com/kuldeeprana2012/aiops-platform.git
 ```
 
 **On VM2:**
 ```bash
-bash scripts/setup-vm2.sh https://github.com/yourusername/aiops-platform.git
+bash scripts/setup-vm2.sh https://github.com/kuldeeprana2012/aiops-platform.git
 ```
 
 ### For Testing

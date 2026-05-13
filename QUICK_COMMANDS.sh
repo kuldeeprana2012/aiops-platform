@@ -15,7 +15,7 @@ sudo dnf install -y git curl wget vim firewalld
 # Step 2: Clone Project
 mkdir -p /opt/aiops-project
 cd /opt/aiops-project
-git clone https://github.com/yourusername/aiops-platform.git .
+git clone https://github.com/kuldeeprana2012/aiops-platform.git .
 
 # Step 3: Run Automated Setup (choose the appropriate command)
 
@@ -45,7 +45,7 @@ sudo dnf install -y git curl wget vim firewalld
 # Step 2: Clone Project
 mkdir -p /opt/aiops-project
 cd /opt/aiops-project
-git clone https://github.com/yourusername/aiops-platform.git .
+git clone https://github.com/kuldeeprana2012/aiops-platform.git .
 
 # Step 3: Run Automated Setup
 bash scripts/setup-vm2.sh
@@ -69,7 +69,7 @@ sudo dnf install -y git curl wget vim firewalld
 # Step 2: Clone Project
 mkdir -p /opt/aiops-project
 cd /opt/aiops-project
-git clone https://github.com/yourusername/aiops-platform.git .
+git clone https://github.com/kuldeeprana2012/aiops-platform.git .
 
 # Step 3: Quick Start (everything in one command)
 bash scripts/quick-start.sh
@@ -240,7 +240,7 @@ sudo firewall-cmd --reload
 ################################################################################
 
 # 1. Replace repository URL with your actual GitHub repo
-#    git clone https://github.com/yourusername/aiops-platform.git .
+#    git clone https://github.com/kuldeeprana2012/aiops-platform.git .
 
 # 2. Replace VM2_IP with actual IP of VM2
 #    bash scripts/setup-vm1.sh 192.168.100.11
