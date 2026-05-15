@@ -18,7 +18,7 @@
 
 set -e
 
-PROJECT_PATH="/opt/aiops-project"
+PROJECT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 INCIDENT_TYPE="${1:-all}"
 
 echo "=========================================="
@@ -156,8 +156,8 @@ echo "Incident simulation complete!"
 echo "==========================================${NC}"
 echo ""
 echo "Check your monitoring stack:"
-echo "  - Grafana: http://<vm1-ip>:3000"
-echo "  - Prometheus: http://<vm1-ip>:9090"
-echo "  - Loki: http://<vm1-ip>:3100"
-echo "  - Alertmanager: http://<vm1-ip>:9093"
+echo "  - Grafana: http://<client-ip>:3000"
+echo "  - Prometheus: http://<client-ip>:9090"
+echo "  - Loki: http://<client-ip>:3100"
+echo "  - Alertmanager: http://<client-ip>:9093"
 echo ""
