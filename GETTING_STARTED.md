@@ -28,7 +28,7 @@ bash scripts/setup-vm1.sh <VM2_IP>
 
 **server (Applications):**
 ```bash
-bash scripts/setup-vm2.sh 192.168.112.133
+bash scripts/setup-vm2.sh 192.168.112.130
 ```
 
 ⏱️ Time: ~10 minutes total
@@ -153,7 +153,7 @@ bash scripts/setup-vm1.sh <VM2_IP>
 
 ```bash
 # From project directory
-bash scripts/check-health.sh 192.168.112.133 <VM2_IP>
+bash scripts/check-health.sh 192.168.112.130 <VM2_IP>
 ```
 
 **Output shows:**

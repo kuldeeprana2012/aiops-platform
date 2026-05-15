@@ -41,7 +41,7 @@ bash scripts/quick-start.sh
 curl -fsSL https://raw.githubusercontent.com/<username>/aiops-platform/main/scripts/setup-vm1.sh | bash
 
 # Or manually:
-bash scripts/setup-vm1.sh 192.168.112.134
+bash scripts/setup-vm1.sh 192.168.112.135
 ```
 
 #### server Setup (Applications)
@@ -50,7 +50,7 @@ bash scripts/setup-vm1.sh 192.168.112.134
 curl -fsSL https://raw.githubusercontent.com/<username>/aiops-platform/main/scripts/setup-vm2.sh | bash
 
 # Or manually:
-bash scripts/setup-vm2.sh 192.168.112.133
+bash scripts/setup-vm2.sh 192.168.112.130
 ```
 
 ---

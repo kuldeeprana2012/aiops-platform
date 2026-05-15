@@ -12,11 +12,11 @@ bash scripts/quick-start.sh
 
 ### Distributed Setup
 ```bash
-# On client (192.168.112.133)
-bash scripts/setup-vm1.sh 192.168.112.134
+# On client (192.168.112.130)
+bash scripts/setup-vm1.sh 192.168.112.135
 
-# On server (192.168.112.134)
-bash scripts/setup-vm2.sh 192.168.112.133
+# On server (192.168.112.135)
+bash scripts/setup-vm2.sh 192.168.112.130
 ```
 
 ---

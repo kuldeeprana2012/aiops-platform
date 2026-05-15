@@ -2,17 +2,17 @@
 
 ## VM roles
 
-- **client (192.168.112.133)**: monitoring stack and AI engine
+- **client (192.168.112.130)**: monitoring stack and AI engine
   - Prometheus, Grafana, Loki, Alertmanager, AI Engine
-- **server (192.168.112.134)**: application servers and log collector
+- **server (192.168.112.135)**: application servers and log collector
   - Node.js app, Python app, Promtail
 
 ## Network configuration
 
 1. Use bridged or host-only networking in VMware.
 2. Assign static IPs or DHCP reservations:
-   - client (ClientAIlocal): `192.168.112.133`
-   - server (ServerAIlocal): `192.168.112.134`
+   - client (ClientAIlocal): `192.168.112.130`
+   - server (ServerAIlocal): `192.168.112.135`
 3. Open required ports in firewalld:
    - `9090/tcp` Prometheus
    - `3000/tcp` Grafana
@@ -62,11 +62,11 @@ Restart your shell or log out/in after adding Docker group permission.
    docker compose up -d --build
    ```
 4. Verify services:
-   - Prometheus: `http://192.168.112.133:9090`
-   - Grafana: `http://192.168.112.133:3000`
-   - Loki: `http://192.168.112.133:3100`
-   - Alertmanager: `http://192.168.112.133:9093`
-   - AI Engine: `http://192.168.112.133:8080/health`
+   - Prometheus: `http://192.168.112.130:9090`
+   - Grafana: `http://192.168.112.130:3000`
+   - Loki: `http://192.168.112.130:3100`
+   - Alertmanager: `http://192.168.112.130:9093`
+   - AI Engine: `http://192.168.112.130:8080/health`
 
 ## server deployment (apps + Promtail)
 
@@ -81,10 +81,10 @@ Restart your shell or log out/in after adding Docker group permission.
    docker compose up -d --build node-app python-app promtail
    ```
 3. Confirm app endpoints:
-   - `http://192.168.112.134:4000/api/hello`
-   - `http://192.168.112.134:4000/api/error`
-   - `http://192.168.112.134:5000/api/hello`
-   - `http://192.168.112.134:5000/api/error`
+   - `http://192.168.112.135:4000/api/hello`
+   - `http://192.168.112.135:4000/api/error`
+   - `http://192.168.112.135:5000/api/hello`
+   - `http://192.168.112.135:5000/api/error`
 
 ## Port forwarding / firewall commands
 

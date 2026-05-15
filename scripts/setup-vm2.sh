@@ -25,7 +25,7 @@ echo "=========================================="
 
 # Variables
 PROJECT_PATH="/opt/aiops-platform"
-VM1_IP="${1:-192.168.112.133}"
+VM1_IP="${1:-192.168.112.130}"
 REPO_URL="${2:-https://github.com/kuldeeprana2012/aiops-platform.git}"
 
 echo "client IP: $VM1_IP"
