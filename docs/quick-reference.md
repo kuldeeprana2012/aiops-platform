@@ -13,9 +13,9 @@ bash scripts/quick-start.sh
 ### Distributed Setup
 ```bash
 # On VM1 (ClientAIlocal - 192.168.112.133)
-bash scripts/setup-vm1.sh 192.168.112.132
+bash scripts/setup-vm1.sh 192.168.112.134
 
-# On VM2 (ServerAIlocal - 192.168.112.132)
+# On VM2 (ServerAIlocal - 192.168.112.134)
 bash scripts/setup-vm2.sh 192.168.112.133
 ```
 

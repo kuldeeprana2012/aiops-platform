@@ -13,7 +13,7 @@ bash setup-vm1.sh [VM2_IP] [REPO_URL]
 ```
 
 **Parameters:**
-- `VM2_IP` (optional): IP address of VM2 where applications run. Default: `192.168.112.132`
+- `VM2_IP` (optional): IP address of VM2 where applications run. Default: `192.168.112.134`
 - `REPO_URL` (optional): Git repository URL to clone. Default: prompted
 
 **What it does:**

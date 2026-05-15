@@ -12,7 +12,7 @@
 1. Use bridged or host-only networking in VMware.
 2. Assign static IPs or DHCP reservations:
    - VM1 (ClientAIlocal): `192.168.112.133`
-   - VM2 (ServerAIlocal): `192.168.112.132`
+   - VM2 (ServerAIlocal): `192.168.112.134`
 3. Open required ports in firewalld:
    - `9090/tcp` Prometheus
    - `3000/tcp` Grafana
@@ -81,10 +81,10 @@ Restart your shell or log out/in after adding Docker group permission.
    docker compose up -d --build node-app python-app promtail
    ```
 3. Confirm app endpoints:
-   - `http://192.168.112.132:4000/api/hello`
-   - `http://192.168.112.132:4000/api/error`
-   - `http://192.168.112.132:5000/api/hello`
-   - `http://192.168.112.132:5000/api/error`
+   - `http://192.168.112.134:4000/api/hello`
+   - `http://192.168.112.134:4000/api/error`
+   - `http://192.168.112.134:5000/api/hello`
+   - `http://192.168.112.134:5000/api/error`
 
 ## Port forwarding / firewall commands
 
