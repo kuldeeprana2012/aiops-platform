@@ -11,7 +11,7 @@ Use this checklist to ensure proper setup of your AIOps monitoring stack.
 - [ ] Admin credentials for Slack/Telegram collected
 - [ ] Ollama API endpoint determined (local or remote)
 
-## VM1 Setup (Monitoring)
+## client Setup (Monitoring)
 
 ### System Preparation
 - [ ] Run `scripts/setup-vm1.sh` OR follow manual steps
@@ -39,12 +39,12 @@ Use this checklist to ensure proper setup of your AIOps monitoring stack.
 - [ ] AI Engine accessible: `curl http://localhost:8080/health`
 
 ### Prometheus Configuration
-- [ ] Update targets in `monitoring/prometheus/prometheus.yml` with VM2 IP
+- [ ] Update targets in `monitoring/prometheus/prometheus.yml` with server IP
 - [ ] Reload Prometheus: `curl -X POST http://localhost:9090/-/reload`
 - [ ] Check scrape targets: `http://localhost:9090/targets`
 - [ ] Verify all jobs are `UP`
 
-## VM2 Setup (Applications)
+## server Setup (Applications)
 
 ### System Preparation
 - [ ] Run `scripts/setup-vm2.sh` OR follow manual steps
@@ -65,18 +65,18 @@ Use this checklist to ensure proper setup of your AIOps monitoring stack.
 
 ## Cross-VM Connectivity
 
-### From VM1
-- [ ] Test VM2 Node app: `curl http://<VM2_IP>:4000/metrics`
-- [ ] Test VM2 Python app: `curl http://<VM2_IP>:5000/metrics`
+### From client
+- [ ] Test server Node app: `curl http://<VM2_IP>:4000/metrics`
+- [ ] Test server Python app: `curl http://<VM2_IP>:5000/metrics`
 
-### From VM2
-- [ ] Test VM1 Prometheus: `curl http://<VM1_IP>:9090/targets`
-- [ ] Test VM1 AI Engine: `curl http://<VM1_IP>:8080/health`
+### From server
+- [ ] Test client Prometheus: `curl http://<VM1_IP>:9090/targets`
+- [ ] Test client AI Engine: `curl http://<VM1_IP>:8080/health`
 
 ## Grafana Setup
 
 ### Access Grafana
-- [ ] Open browser: `http://<vm1-ip>:3000`
+- [ ] Open browser: `http://<client-ip>:3000`
 - [ ] Login with: `admin` / `admin`
 - [ ] Change default password
 
@@ -98,7 +98,7 @@ Use this checklist to ensure proper setup of your AIOps monitoring stack.
 ## Alertmanager Setup
 
 ### Access Alertmanager
-- [ ] Open browser: `http://<vm1-ip>:9093`
+- [ ] Open browser: `http://<client-ip>:9093`
 - [ ] Verify routing configuration
 - [ ] Check that AI Engine webhook is configured
 

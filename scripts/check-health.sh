@@ -14,8 +14,8 @@ VM2_IP="${2:-localhost}"
 echo "=========================================="
 echo "AIOps Health Check"
 echo "=========================================="
-echo "VM1 IP: $VM1_IP"
-echo "VM2 IP: $VM2_IP"
+echo "client IP: $VM1_IP"
+echo "server IP: $VM2_IP"
 echo ""
 
 # Colors
@@ -42,7 +42,7 @@ check_endpoint() {
     fi
 }
 
-echo -e "${YELLOW}VM1 Services (Monitoring Stack):${NC}"
+echo -e "${YELLOW}client Services (Monitoring Stack):${NC}"
 check_endpoint "Prometheus" "http://$VM1_IP:9090/-/healthy"
 check_endpoint "Grafana" "http://$VM1_IP:3000/api/health"
 check_endpoint "Loki" "http://$VM1_IP:3100/ready"
@@ -50,7 +50,7 @@ check_endpoint "Alertmanager" "http://$VM1_IP:9093/-/healthy"
 check_endpoint "AI Engine" "http://$VM1_IP:8080/health"
 
 echo ""
-echo -e "${YELLOW}VM2 Services (Application Servers):${NC}"
+echo -e "${YELLOW}server Services (Application Servers):${NC}"
 check_endpoint "Node App" "http://$VM2_IP:4000/api/hello"
 check_endpoint "Node App Metrics" "http://$VM2_IP:4000/metrics"
 check_endpoint "Python App" "http://$VM2_IP:5000/api/hello"

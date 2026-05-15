@@ -2,17 +2,17 @@
 
 ## VM roles
 
-- **VM1 (ClientAIlocal)**: monitoring stack and AI engine
+- **client (192.168.112.133)**: monitoring stack and AI engine
   - Prometheus, Grafana, Loki, Alertmanager, AI Engine
-- **VM2 (ServerAIlocal)**: application servers and log collector
+- **server (192.168.112.134)**: application servers and log collector
   - Node.js app, Python app, Promtail
 
 ## Network configuration
 
 1. Use bridged or host-only networking in VMware.
 2. Assign static IPs or DHCP reservations:
-   - VM1 (ClientAIlocal): `192.168.112.133`
-   - VM2 (ServerAIlocal): `192.168.112.134`
+   - client (ClientAIlocal): `192.168.112.133`
+   - server (ServerAIlocal): `192.168.112.134`
 3. Open required ports in firewalld:
    - `9090/tcp` Prometheus
    - `3000/tcp` Grafana
@@ -44,16 +44,16 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 Restart your shell or log out/in after adding Docker group permission.
 
-## VM1 deployment (monitoring + AI)
+## client deployment (monitoring + AI)
 
-1. Clone repo to VM1:
+1. Clone repo to client:
    ```bash
    git clone <repo-url> /opt/aiops-project
    cd /opt/aiops-project
    cp .env.example .env
    ```
 2. Set environment variables in `.env`.
-3. Start the stack on VM1:
+3. Start the stack on client:
    ```bash
    docker compose up -d --build prometheus grafana loki alertmanager ai-engine
    ```
@@ -68,9 +68,9 @@ Restart your shell or log out/in after adding Docker group permission.
    - Alertmanager: `http://192.168.112.133:9093`
    - AI Engine: `http://192.168.112.133:8080/health`
 
-## VM2 deployment (apps + Promtail)
+## server deployment (apps + Promtail)
 
-1. Clone repo to VM2:
+1. Clone repo to server:
    ```bash
    git clone <repo-url> /opt/aiops-project
    cd /opt/aiops-project
@@ -101,15 +101,15 @@ sudo firewall-cmd --reload
 
 ## Validate connectivity
 
-From VM1:
+From client:
 ```bash
 curl http://<VM2_IP>:4000/metrics
 curl http://<VM2_IP>:5000/metrics
 ```
 
-If the applications are running on VM2, update `monitoring/prometheus/prometheus.yml` to use the VM2 IP address for the `node_app` and `python_app` targets.
+If the applications are running on server, update `monitoring/prometheus/prometheus.yml` to use the server IP address for the `node_app` and `python_app` targets.
 
-From VM2:
+From server:
 ```bash
 curl http://<VM1_IP>:9090/targets
 curl http://<VM1_IP>:3100/metrics

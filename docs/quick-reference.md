@@ -12,10 +12,10 @@ bash scripts/quick-start.sh
 
 ### Distributed Setup
 ```bash
-# On VM1 (ClientAIlocal - 192.168.112.133)
+# On client (192.168.112.133)
 bash scripts/setup-vm1.sh 192.168.112.134
 
-# On VM2 (ServerAIlocal - 192.168.112.134)
+# On server (192.168.112.134)
 bash scripts/setup-vm2.sh 192.168.112.133
 ```
 
@@ -68,16 +68,16 @@ docker compose up -d --build
 
 ## Service Endpoints
 
-### VM1 (Monitoring)
-- Prometheus: `http://<vm1-ip>:9090`
-- Grafana: `http://<vm1-ip>:3000`
-- Loki: `http://<vm1-ip>:3100`
-- Alertmanager: `http://<vm1-ip>:9093`
-- AI Engine: `http://<vm1-ip>:8080`
+### client (Monitoring)
+- Prometheus: `http://<client-ip>:9090`
+- Grafana: `http://<client-ip>:3000`
+- Loki: `http://<client-ip>:3100`
+- Alertmanager: `http://<client-ip>:9093`
+- AI Engine: `http://<client-ip>:8080`
 
-### VM2 (Applications)
-- Node app: `http://<vm2-ip>:4000`
-- Python app: `http://<vm2-ip>:5000`
+### server (Applications)
+- Node app: `http://<server-ip>:4000`
+- Python app: `http://<server-ip>:5000`
 
 ---
 
@@ -126,7 +126,7 @@ bash scripts/check-health.sh <VM1_IP> <VM2_IP>
 
 ### Manual endpoint checks
 
-From VM1:
+From client:
 ```bash
 curl http://localhost:9090/-/healthy      # Prometheus
 curl http://localhost:3000/api/health     # Grafana
@@ -135,7 +135,7 @@ curl http://localhost:9093/-/healthy      # Alertmanager
 curl http://localhost:8080/health         # AI Engine
 ```
 
-From VM2:
+From server:
 ```bash
 curl http://localhost:4000/api/hello      # Node app
 curl http://localhost:5000/api/hello      # Python app

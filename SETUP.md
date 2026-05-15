@@ -35,7 +35,7 @@ bash scripts/quick-start.sh
 
 ### Option 2: Two-VM Setup (Production)
 
-#### VM1 Setup (Monitoring Stack)
+#### client Setup (Monitoring Stack)
 ```bash
 # Download and run setup script
 curl -fsSL https://raw.githubusercontent.com/<username>/aiops-platform/main/scripts/setup-vm1.sh | bash
@@ -44,7 +44,7 @@ curl -fsSL https://raw.githubusercontent.com/<username>/aiops-platform/main/scri
 bash scripts/setup-vm1.sh 192.168.112.134
 ```
 
-#### VM2 Setup (Applications)
+#### server Setup (Applications)
 ```bash
 # Download and run setup script
 curl -fsSL https://raw.githubusercontent.com/<username>/aiops-platform/main/scripts/setup-vm2.sh | bash
@@ -64,8 +64,8 @@ aiops-platform/
 ├── README.md                       # This file
 │
 ├── scripts/
-│   ├── setup-vm1.sh               # Automated setup for VM1 (monitoring)
-│   ├── setup-vm2.sh               # Automated setup for VM2 (apps)
+│   ├── setup-vm1.sh               # Automated setup for client (monitoring)
+│   ├── setup-vm2.sh               # Automated setup for server (apps)
 │   ├── quick-start.sh             # Single machine quick start
 │   ├── simulate-incidents.sh      # Generate test incidents
 │   └── check-health.sh            # Health check utility
@@ -148,12 +148,12 @@ sudo systemctl enable --now firewalld
 
 ### Step 2: Automated Setup
 
-#### For VM1 (Monitoring + AI) - on first VM
+#### For client (Monitoring + AI) - on first VM
 ```bash
 # Make script executable
 chmod +x scripts/setup-vm1.sh
 
-# Run with VM2 IP as parameter
+# Run with server IP as parameter
 # Usage: setup-vm1.sh [VM2_IP] [REPO_URL]
 bash scripts/setup-vm1.sh <VM2_IP> https://github.com/kuldeeprana2012/aiops-platform.git
 ```
@@ -162,11 +162,11 @@ This script will:
 - ✅ Install Docker and Docker Compose
 - ✅ Configure firewall ports (9090, 3000, 3100, 9093, 8080)
 - ✅ Clone the repository
-- ✅ Update Prometheus targets for VM2
+- ✅ Update Prometheus targets for server
 - ✅ Start all monitoring services
 - ✅ Display access URLs
 
-#### For VM2 (Applications + Logging) - on second VM
+#### For server (Applications + Logging) - on second VM
 ```bash
 # Make script executable
 chmod +x scripts/setup-vm2.sh
@@ -184,7 +184,7 @@ This script will:
 
 ### Step 3: Configuration
 
-#### Set Environment Variables (VM1)
+#### Set Environment Variables (client)
 ```bash
 cd /opt/aiops-project
 
@@ -227,13 +227,13 @@ cd scripts
 bash check-health.sh <VM1_IP> <VM2_IP>
 ```
 
-#### Test applications (from VM2)
+#### Test applications (from server)
 ```bash
 curl http://localhost:4000/api/hello
 curl http://localhost:5000/api/hello
 ```
 
-#### Verify monitoring (from VM1)
+#### Verify monitoring (from client)
 ```bash
 # Test Prometheus
 curl http://localhost:9090/targets
@@ -249,7 +249,7 @@ curl http://localhost:8080/health
 
 ## 📊 Access Points
 
-### Monitoring Stack (VM1)
+### Monitoring Stack (client)
 
 | Service | URL | Credentials |
 |---------|-----|-------------|
@@ -259,7 +259,7 @@ curl http://localhost:8080/health
 | Alertmanager | http://VM1_IP:9093 | (no auth) |
 | AI Engine | http://VM1_IP:8080 | (no auth) |
 
-### Applications (VM2)
+### Applications (server)
 
 | Service | Endpoint |
 |---------|----------|

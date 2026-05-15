@@ -15,13 +15,13 @@ scrape_configs:
   - job_name: 'node_app'
     metrics_path: /metrics
     static_configs:
-      # Replace this address with the VM2 application host if apps are deployed on a separate VM.
+      # Replace this address with the server application host if apps are deployed on a separate VM.
       - targets: ['192.168.112.134:4000']
 
   - job_name: 'python_app'
     metrics_path: /metrics
     static_configs:
-      # Replace this address with the VM2 application host if apps are deployed on a separate VM.
+      # Replace this address with the server application host if apps are deployed on a separate VM.
       - targets: ['192.168.112.134:5000']
 
   - job_name: 'node_exporter'

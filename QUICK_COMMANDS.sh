@@ -4,8 +4,8 @@
 # Copy and paste these commands directly on your Rocky Linux 10 VMs
 
 ################################################################################
-# VM1 SETUP (Monitoring Stack + AI Engine)
-# Run these commands on the first VM (VM1)
+# client SETUP (Monitoring Stack + AI Engine)
+# Run these commands on the first VM (client)
 ################################################################################
 
 # Step 1: Prerequisites
@@ -19,10 +19,10 @@ git clone https://github.com/kuldeeprana2012/aiops-platform.git .
 
 # Step 3: Run Automated Setup (choose the appropriate command)
 
-# Option A: If VM2 is at the standard IP
+# Option A: If server is at the standard IP
 bash scripts/setup-vm1.sh <VM2_IP>
 
-# Option B: If VM2 has a different IP
+# Option B: If server has a different IP
 bash scripts/setup-vm1.sh YOUR_VM2_IP
 
 # Step 4: Wait for services to start (2-3 minutes)
@@ -34,8 +34,8 @@ docker compose logs -f
 # Password: admin
 
 ################################################################################
-# VM2 SETUP (Applications + Log Collection)
-# Run these commands on the second VM (VM2)
+# server SETUP (Applications + Log Collection)
+# Run these commands on the second VM (server)
 ################################################################################
 
 # Step 1: Prerequisites
@@ -78,7 +78,7 @@ bash scripts/quick-start.sh
 # Open browser to: http://localhost:3000
 
 ################################################################################
-# CONFIGURATION AFTER SETUP (VM1)
+# CONFIGURATION AFTER SETUP (client)
 ################################################################################
 
 # Edit environment variables
@@ -101,7 +101,7 @@ docker compose restart ai-engine
 cd /opt/aiops-project
 bash scripts/check-health.sh
 
-# Generate test incidents (run on VM2 or single machine)
+# Generate test incidents (run on server or single machine)
 cd /opt/aiops-project
 bash scripts/simulate-incidents.sh error-spike
 bash scripts/simulate-incidents.sh all
@@ -143,7 +143,7 @@ docker compose down
 docker compose down -v
 
 ################################################################################
-# VERIFICATION COMMANDS (Run from VM1)
+# VERIFICATION COMMANDS (Run from client)
 ################################################################################
 
 # Test Prometheus
@@ -162,7 +162,7 @@ curl http://localhost:9093/-/healthy
 curl http://localhost:8080/health
 
 ################################################################################
-# VERIFICATION COMMANDS (Run from VM2)
+# VERIFICATION COMMANDS (Run from server)
 ################################################################################
 
 # Test Node app
@@ -174,10 +174,10 @@ curl http://localhost:5000/api/hello
 curl http://localhost:5000/metrics
 
 ################################################################################
-# CROSS-VM VERIFICATION (From VM1 to VM2)
+# CROSS-VM VERIFICATION (From client to server)
 ################################################################################
 
-# Replace <VM2_IP> with the actual VM2 IP
+# Replace <VM2_IP> with the actual server IP
 curl http://<VM2_IP>:4000/metrics
 curl http://<VM2_IP>:5000/metrics
 
@@ -224,14 +224,14 @@ sudo firewall-cmd --reload
 # SERVICE ENDPOINTS (After Setup)
 ################################################################################
 
-# VM1 (Monitoring)
+# client (Monitoring)
 # Prometheus: http://<VM1_IP>:9090
 # Grafana: http://<VM1_IP>:3000
 # Loki: http://<VM1_IP>:3100
 # Alertmanager: http://<VM1_IP>:9093
 # AI Engine: http://<VM1_IP>:8080
 
-# VM2 (Applications)
+# server (Applications)
 # Node App: http://<VM2_IP>:4000
 # Python App: http://<VM2_IP>:5000
 
@@ -242,7 +242,7 @@ sudo firewall-cmd --reload
 # 1. Replace repository URL with your actual GitHub repo
 #    git clone https://github.com/kuldeeprana2012/aiops-platform.git .
 
-# 2. Replace VM2_IP with actual IP of VM2
+# 2. Replace VM2_IP with actual IP of server
 #    bash scripts/setup-vm1.sh <VM2_IP>
 
 # 3. The setup scripts will prompt for confirmations

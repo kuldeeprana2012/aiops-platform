@@ -27,8 +27,8 @@ This directory contains the complete AIOps monitoring stack ready for deployment
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ✅ 5 Automation Scripts (scripts/ folder):
-   • setup-vm1.sh              - One-shot setup for VM1 (monitoring)
-   • setup-vm2.sh              - One-shot setup for VM2 (applications)
+   • setup-vm1.sh              - One-shot setup for client (monitoring)
+   • setup-vm2.sh              - One-shot setup for server (applications)
    • quick-start.sh            - Single machine quick start
    • simulate-incidents.sh     - Generate test incidents for validation
    • check-health.sh           - Health check utility
@@ -92,16 +92,16 @@ Then access:
 OPTION 2: Two VMs (Production/Enterprise)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Step 1 - On VM1 (Monitoring Stack):
+Step 1 - On client (Monitoring Stack):
     cd /opt/aiops-project
     bash scripts/setup-vm1.sh <VM2_IP>
 
-Step 2 - On VM2 (Applications):
+Step 2 - On server (Applications):
     cd /opt/aiops-project
     bash scripts/setup-vm2.sh
 
 ✓ Time: ~10 minutes total
-✓ Monitoring on VM1, Apps on VM2
+✓ Monitoring on client, Apps on server
 ✓ Enterprise-ready setup
 
 Then access:
@@ -164,8 +164,8 @@ aiops-platform/
 ├── .env.example                    ← Environment template
 │
 ├── scripts/                        ← Automation scripts
-│   ├── setup-vm1.sh               ← VM1 setup
-│   ├── setup-vm2.sh               ← VM2 setup
+│   ├── setup-vm1.sh               ← client setup
+│   ├── setup-vm2.sh               ← server setup
 │   ├── quick-start.sh             ← Single machine
 │   ├── simulate-incidents.sh      ← Test incident generator
 │   ├── check-health.sh            ← Health check
@@ -202,7 +202,7 @@ aiops-platform/
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 1. COPY PROJECT TO ROCKY LINUX VM(s)
-   • Upload to /opt/aiops-project on VM1 and/or VM2
+   • Upload to /opt/aiops-project on client and/or server
    • Or use git clone if you've pushed to a repository
 
 2. READ THE SETUP GUIDE
@@ -211,8 +211,8 @@ aiops-platform/
 
 3. RUN THE APPROPRIATE SCRIPT
    • Single machine: bash scripts/quick-start.sh
-   • VM1: bash scripts/setup-vm1.sh <VM2_IP>
-   • VM2: bash scripts/setup-vm2.sh
+   • client: bash scripts/setup-vm1.sh <VM2_IP>
+   • server: bash scripts/setup-vm2.sh
 
 4. VERIFY SERVICES ARE RUNNING
    bash scripts/check-health.sh
@@ -275,11 +275,11 @@ Single Machine:
     → All services on localhost
 
 Two VMs:
-    VM1: bash scripts/setup-vm1.sh <VM2_IP>
-    VM2: bash scripts/setup-vm2.sh
+    client: bash scripts/setup-vm1.sh <VM2_IP>
+    server: bash scripts/setup-vm2.sh
     → Best for: Production, high availability
     → Time: 10 minutes
-    → Monitoring on VM1, Apps on VM2
+    → Monitoring on client, Apps on server
 
 Kubernetes (Optional):
     kubectl apply -f kubernetes/

@@ -21,12 +21,12 @@ bash scripts/quick-start.sh
 #### **Option B: Two VMs (Production)**
 Best for: Enterprise, high availability, real scenarios
 
-**VM1 (Monitoring Stack):**
+**client (Monitoring Stack):**
 ```bash
 bash scripts/setup-vm1.sh <VM2_IP>
 ```
 
-**VM2 (Applications):**
+**server (Applications):**
 ```bash
 bash scripts/setup-vm2.sh 192.168.112.133
 ```
@@ -53,8 +53,8 @@ bash simulate-incidents.sh all
 
 ```
 scripts/
-├── setup-vm1.sh              ← Run this on VM1 (monitoring)
-├── setup-vm2.sh              ← Run this on VM2 (apps)
+├── setup-vm1.sh              ← Run this on client (monitoring)
+├── setup-vm2.sh              ← Run this on server (apps)
 ├── quick-start.sh            ← Run this for single machine
 ├── simulate-incidents.sh     ← Generate test incidents
 ├── check-health.sh           ← Verify all services
@@ -134,7 +134,7 @@ kubernetes/                  ← K8s manifests (optional)
 ### 1. **First Time Setup (New User)**
 
 ```bash
-# Clone to VM1
+# Clone to client
 cd /opt/aiops-project
 
 # Run automated setup
@@ -215,7 +215,7 @@ bash scripts/simulate-incidents.sh error-spike
 
 ```
 ┌─────────────────────────────────────────────┐
-│                  VM1 (Monitoring)            │
+│                  client (Monitoring)            │
 ├─────────────────────────────────────────────┤
 │  Prometheus (9090)  →  Grafana (3000)       │
 │  Loki (3100)  →  Promtail (log collector)   │
@@ -223,7 +223,7 @@ bash scripts/simulate-incidents.sh error-spike
 └─────────────────────────────────────────────┘
               ↓
 ┌─────────────────────────────────────────────┐
-│              VM2 (Applications)              │
+│              server (Applications)              │
 ├─────────────────────────────────────────────┤
 │  Node App (4000)  ↙ Metrics + Logs ↖        │
 │  Python App (5000)                 │        │

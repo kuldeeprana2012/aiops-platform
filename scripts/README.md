@@ -4,8 +4,8 @@ This directory contains automated shell scripts for deploying the AIOps monitori
 
 ## Scripts Overview
 
-### 1. `setup-vm1.sh` - VM1 Monitoring Stack Setup
-**Purpose:** Automate complete setup of monitoring infrastructure on VM1
+### 1. `setup-vm1.sh` - client Monitoring Stack Setup
+**Purpose:** Automate complete setup of monitoring infrastructure on client
 
 **Usage:**
 ```bash
@@ -13,7 +13,7 @@ bash setup-vm1.sh [VM2_IP] [REPO_URL]
 ```
 
 **Parameters:**
-- `VM2_IP` (optional): IP address of VM2 where applications run. Default: `192.168.112.134`
+- `VM2_IP` (optional): IP address of server where applications run. Default: `192.168.112.134`
 - `REPO_URL` (optional): Git repository URL to clone. Default: prompted
 
 **What it does:**
@@ -22,7 +22,7 @@ bash setup-vm1.sh [VM2_IP] [REPO_URL]
 - ✅ Configures firewall (ports 9090, 3000, 3100, 9093, 8080, 22)
 - ✅ Clones the AIOps repository
 - ✅ Creates/configures `.env` file
-- ✅ Updates Prometheus targets with VM2 IP
+- ✅ Updates Prometheus targets with server IP
 - ✅ Starts all monitoring services
 - ✅ Provides access URLs
 
@@ -37,8 +37,8 @@ bash setup-vm1.sh [VM2_IP] [REPO_URL]
 
 ---
 
-### 2. `setup-vm2.sh` - VM2 Applications Setup
-**Purpose:** Automate setup of application servers and log collection on VM2
+### 2. `setup-vm2.sh` - server Applications Setup
+**Purpose:** Automate setup of application servers and log collection on server
 
 **Usage:**
 ```bash
@@ -141,8 +141,8 @@ bash check-health.sh [VM1_IP] [VM2_IP]
 ```
 
 **Parameters:**
-- `VM1_IP` (optional): VM1 IP address. Default: `localhost`
-- `VM2_IP` (optional): VM2 IP address. Default: `localhost`
+- `VM1_IP` (optional): client IP address. Default: `localhost`
+- `VM2_IP` (optional): server IP address. Default: `localhost`
 
 **What it does:**
 - ✅ Tests Prometheus endpoint
@@ -163,7 +163,7 @@ bash check-health.sh
 # Two VM setup
 bash check-health.sh <VM1_IP> <VM2_IP>
 
-# Just VM1
+# Just client
 bash check-health.sh <VM1_IP>
 ```
 
@@ -179,12 +179,12 @@ bash scripts/quick-start.sh
 
 ### For Production (Two VMs)
 
-**On VM1:**
+**On client:**
 ```bash
 bash scripts/setup-vm1.sh <VM2_IP> https://github.com/kuldeeprana2012/aiops-platform.git
 ```
 
-**On VM2:**
+**On server:**
 ```bash
 bash scripts/setup-vm2.sh https://github.com/kuldeeprana2012/aiops-platform.git
 ```
@@ -228,7 +228,7 @@ All scripts include:
 - `sudo` - Elevated privileges
 
 ### For Incident Simulation
-- `stress-ng` - CPU/memory stress testing (installed automatically on VM2)
+- `stress-ng` - CPU/memory stress testing (installed automatically on server)
 
 ---
 

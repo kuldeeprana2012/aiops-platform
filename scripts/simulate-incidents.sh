@@ -2,7 +2,7 @@
 
 ################################################################################
 # AIOps Test & Incident Simulation Script
-# Run this on VM2 to simulate real incidents for testing the monitoring stack
+# Run this on server to simulate real incidents for testing the monitoring stack
 #
 # Usage:
 #   bash simulate-incidents.sh [incident-type]

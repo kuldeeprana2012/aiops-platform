@@ -35,22 +35,22 @@ A complete AIOps stack on Rocky Linux VMs using Docker Compose, Prometheus, Graf
    docker compose up -d --build
    ```
 3. Open services:
-   - Grafana: `http://<vm1-ip>:3000`
-   - Prometheus: `http://<vm1-ip>:9090`
-   - Loki: `http://<vm1-ip>:3100`
-   - Alertmanager: `http://<vm1-ip>:9093`
-   - Node App: `http://<vm2-ip>:4000`
-   - Python App: `http://<vm2-ip>:5000`
-   - AI Engine: `http://<vm1-ip>:8080`
+   - Grafana: `http://<client-ip>:3000`
+   - Prometheus: `http://<client-ip>:9090`
+   - Loki: `http://<client-ip>:3100`
+   - Alertmanager: `http://<client-ip>:9093`
+   - Node App: `http://<server-ip>:4000`
+   - Python App: `http://<server-ip>:5000`
+   - AI Engine: `http://<client-ip>:8080`
 
 ## VM roles
 
-- **VM1**: Prometheus, Grafana, Loki, Alertmanager, AI Engine
-- **VM2**: Node.js/Python apps and Promtail log collection
+- **client**: Prometheus, Grafana, Loki, Alertmanager, AI Engine
+- **server**: Node.js/Python apps and Promtail log collection
 
 ## Next steps
 
 - Configure Grafana dashboards and enable provisioning
-- Validate Prometheus scraping on `http://<vm1-ip>:9090/targets`
+- Validate Prometheus scraping on `http://<client-ip>:9090/targets`
 - Use Slack/Telegram for real alerts
 - Extend the AI engine with LLM prompts and root cause analysis

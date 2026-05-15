@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ################################################################################
-# AIOps VM1 Setup Script (Monitoring + AI Engine)
-# Run this on Rocky Linux 10 VM1
+# AIOps client Setup Script (Monitoring + AI Engine)
+# Run this on Rocky Linux 10 client
 #
 # Usage:
 #   curl -fsSL https://raw.githubusercontent.com/<repo>/scripts/setup-vm1.sh | bash
@@ -12,16 +12,16 @@
 # This script will:
 # - Update system packages
 # - Install Docker and Docker Compose
-# - Configure firewall for VM1 services
+# - Configure firewall for client services
 # - Clone the AIOps project
-# - Set up Prometheus targets for remote VM2
+# - Set up Prometheus targets for remote server
 # - Start monitoring services
 ################################################################################
 
 set -e
 
 echo "=========================================="
-echo "AIOps VM1 Setup - Monitoring Stack"
+echo "AIOps client Setup - Monitoring Stack"
 echo "=========================================="
 
 # Variables
@@ -29,7 +29,7 @@ PROJECT_PATH="/opt/aiops-platform"
 VM2_IP="${1:-192.168.112.134}"
 REPO_URL="${2:-https://github.com/kuldeeprana2012/aiops-platform.git}"
 
-echo "Target VM2 IP: $VM2_IP"
+echo "Target server IP: $VM2_IP"
 echo "Project path: $PROJECT_PATH"
 echo "Repository: $REPO_URL"
 
@@ -63,9 +63,9 @@ echo "[5/8] Adding user to docker group..."
 sudo usermod -aG docker "$USER"
 newgrp docker
 
-# Step 6: Configure firewall for VM1
+# Step 6: Configure firewall for client
 echo ""
-echo "[6/8] Opening firewall ports for VM1 services..."
+echo "[6/8] Opening firewall ports for client services..."
 sudo firewall-cmd --permanent --add-service=http
 sudo firewall-cmd --permanent --add-service=https
 sudo firewall-cmd --permanent --add-port=9090/tcp   # Prometheus
@@ -101,9 +101,9 @@ if [ ! -f .env ]; then
     echo "   - Set OLLAMA_URL (default: http://localhost:11434)"
 fi
 
-# Update Prometheus targets for VM2
+# Update Prometheus targets for server
 echo ""
-echo "[7b/8] Updating Prometheus targets for VM2 ($VM2_IP)..."
+echo "[7b/8] Updating Prometheus targets for server ($VM2_IP)..."
 sed -i "s|targets: \['.*:4000'\]|targets: ['${VM2_IP}:4000']|g" "$PROJECT_PATH/monitoring/prometheus/prometheus.yml"
 sed -i "s|targets: \['.*:5000'\]|targets: ['${VM2_IP}:5000']|g" "$PROJECT_PATH/monitoring/prometheus/prometheus.yml"
 sed -i "s|targets: \['.*:9100'\]|targets: ['${VM2_IP}:9100']|g" "$PROJECT_PATH/monitoring/prometheus/prometheus.yml"
@@ -116,7 +116,7 @@ docker compose up -d --build prometheus grafana loki alertmanager ai-engine
 
 echo ""
 echo "=========================================="
-echo "✅ VM1 Setup Complete!"
+echo "✅ client Setup Complete!"
 echo "=========================================="
 echo ""
 echo "Services running:"
@@ -129,7 +129,7 @@ echo ""
 echo "Next steps:"
 echo "  1. Edit .env with your Slack/Telegram credentials"
 echo "  2. Restart containers: docker compose restart"
-echo "  3. Access Grafana at http://<vm1-ip>:3000 (admin:admin)"
+echo "  3. Access Grafana at http://<client-ip>:3000 (admin:admin)"
 echo ""
 echo "To view logs:"
 echo "  docker compose logs -f prometheus"

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ################################################################################
-# AIOps VM2 Setup Script (Application Servers + Promtail)
-# Run this on Rocky Linux 10 VM2
+# AIOps server Setup Script (Application Servers + Promtail)
+# Run this on Rocky Linux 10 server
 #
 # Usage:
 #   curl -fsSL https://raw.githubusercontent.com/<repo>/scripts/setup-vm2.sh | bash
@@ -12,7 +12,7 @@
 # This script will:
 # - Update system packages
 # - Install Docker and Docker Compose
-# - Configure firewall for VM2 services
+# - Configure firewall for server services
 # - Clone the AIOps project
 # - Start application and logging services
 ################################################################################
@@ -20,7 +20,7 @@
 set -e
 
 echo "=========================================="
-echo "AIOps VM2 Setup - Application Servers"
+echo "AIOps server Setup - Application Servers"
 echo "=========================================="
 
 # Variables
@@ -28,7 +28,7 @@ PROJECT_PATH="/opt/aiops-platform"
 VM1_IP="${1:-192.168.112.133}"
 REPO_URL="${2:-https://github.com/kuldeeprana2012/aiops-platform.git}"
 
-echo "VM1 IP: $VM1_IP"
+echo "client IP: $VM1_IP"
 echo "Project path: $PROJECT_PATH"
 echo "Repository: $REPO_URL"
 
@@ -62,9 +62,9 @@ echo "[5/7] Adding user to docker group..."
 sudo usermod -aG docker "$USER"
 newgrp docker
 
-# Step 6: Configure firewall for VM2
+# Step 6: Configure firewall for server
 echo ""
-echo "[6/7] Opening firewall ports for VM2 services..."
+echo "[6/7] Opening firewall ports for server services..."
 sudo firewall-cmd --permanent --add-port=4000/tcp   # Node app
 sudo firewall-cmd --permanent --add-port=5000/tcp   # Python app
 sudo firewall-cmd --permanent --add-port=22/tcp     # SSH
@@ -87,9 +87,9 @@ fi
 # Create log directories
 mkdir -p app/node-app/logs app/python-app/logs
 
-# Update Promtail config for VM1 Loki
+# Update Promtail config for client Loki
 echo ""
-echo "[7b/7] Updating Promtail config for VM1 ($VM1_IP)..."
+echo "[7b/7] Updating Promtail config for client ($VM1_IP)..."
 sed -i "s|http://.*:3100/loki/api/v1/push|http://${VM1_IP}:3100/loki/api/v1/push|g" "$PROJECT_PATH/monitoring/promtail/promtail-config.yaml"
 
 # Start services
@@ -98,7 +98,7 @@ docker compose up -d --build node-app python-app promtail
 
 echo ""
 echo "=========================================="
-echo "✅ VM2 Setup Complete!"
+echo "✅ server Setup Complete!"
 echo "=========================================="
 echo ""
 echo "Services running:"
