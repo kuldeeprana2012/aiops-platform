@@ -94,7 +94,7 @@ OPTION 2: Two VMs (Production/Enterprise)
 
 Step 1 - On VM1 (Monitoring Stack):
     cd /opt/aiops-project
-    bash scripts/setup-vm1.sh 192.168.100.11
+    bash scripts/setup-vm1.sh <VM2_IP>
 
 Step 2 - On VM2 (Applications):
     cd /opt/aiops-project
@@ -105,10 +105,10 @@ Step 2 - On VM2 (Applications):
 ✓ Enterprise-ready setup
 
 Then access:
-    • Grafana: http://192.168.100.10:3000
-    • Prometheus: http://192.168.100.10:9090
-    • Node App: http://192.168.100.11:4000
-    • Python App: http://192.168.100.11:5000
+    • Grafana: http://<VM1_IP>:3000
+    • Prometheus: http://<VM1_IP>:9090
+    • Node App: http://<VM2_IP>:4000
+    • Python App: http://<VM2_IP>:5000
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -211,7 +211,7 @@ aiops-platform/
 
 3. RUN THE APPROPRIATE SCRIPT
    • Single machine: bash scripts/quick-start.sh
-   • VM1: bash scripts/setup-vm1.sh 192.168.100.11
+   • VM1: bash scripts/setup-vm1.sh <VM2_IP>
    • VM2: bash scripts/setup-vm2.sh
 
 4. VERIFY SERVICES ARE RUNNING
@@ -275,7 +275,7 @@ Single Machine:
     → All services on localhost
 
 Two VMs:
-    VM1: bash scripts/setup-vm1.sh 192.168.100.11
+    VM1: bash scripts/setup-vm1.sh <VM2_IP>
     VM2: bash scripts/setup-vm2.sh
     → Best for: Production, high availability
     → Time: 10 minutes

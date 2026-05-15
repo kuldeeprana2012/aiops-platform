@@ -19,8 +19,8 @@ git clone https://github.com/kuldeeprana2012/aiops-platform.git .
 
 # Step 3: Run Automated Setup (choose the appropriate command)
 
-# Option A: If VM2 is at 192.168.100.11 (standard)
-bash scripts/setup-vm1.sh 192.168.100.11
+# Option A: If VM2 is at the standard IP
+bash scripts/setup-vm1.sh <VM2_IP>
 
 # Option B: If VM2 has a different IP
 bash scripts/setup-vm1.sh YOUR_VM2_IP
@@ -177,9 +177,9 @@ curl http://localhost:5000/metrics
 # CROSS-VM VERIFICATION (From VM1 to VM2)
 ################################################################################
 
-# Replace 192.168.100.11 with actual VM2 IP
-curl http://192.168.100.11:4000/metrics
-curl http://192.168.100.11:5000/metrics
+# Replace <VM2_IP> with the actual VM2 IP
+curl http://<VM2_IP>:4000/metrics
+curl http://<VM2_IP>:5000/metrics
 
 ################################################################################
 # TROUBLESHOOTING
@@ -196,7 +196,7 @@ docker --version
 docker-compose --version
 
 # Check network connectivity
-ping 192.168.100.11
+ping <VM2_IP>
 
 # View container logs
 docker logs aiops_prometheus
@@ -243,7 +243,7 @@ sudo firewall-cmd --reload
 #    git clone https://github.com/kuldeeprana2012/aiops-platform.git .
 
 # 2. Replace VM2_IP with actual IP of VM2
-#    bash scripts/setup-vm1.sh 192.168.100.11
+#    bash scripts/setup-vm1.sh <VM2_IP>
 
 # 3. The setup scripts will prompt for confirmations
 #    - Answer 'yes' when asked to continue

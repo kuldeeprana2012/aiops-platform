@@ -11,7 +11,7 @@
 
 1. Use bridged or host-only networking in VMware.
 2. Assign static IPs or DHCP reservations:
-   - VM1 (ClientAIlocal): `192.168.112.130`
+   - VM1 (ClientAIlocal): `192.168.112.133`
    - VM2 (ServerAIlocal): `192.168.112.132`
 3. Open required ports in firewalld:
    - `9090/tcp` Prometheus
@@ -62,11 +62,11 @@ Restart your shell or log out/in after adding Docker group permission.
    docker compose up -d --build
    ```
 4. Verify services:
-   - Prometheus: `http://192.168.112.130:9090`
-   - Grafana: `http://192.168.112.130:3000`
-   - Loki: `http://192.168.112.130:3100`
-   - Alertmanager: `http://192.168.112.130:9093`
-   - AI Engine: `http://192.168.112.130:8080/health`
+   - Prometheus: `http://192.168.112.133:9090`
+   - Grafana: `http://192.168.112.133:3000`
+   - Loki: `http://192.168.112.133:3100`
+   - Alertmanager: `http://192.168.112.133:9093`
+   - AI Engine: `http://192.168.112.133:8080/health`
 
 ## VM2 deployment (apps + Promtail)
 
@@ -103,14 +103,14 @@ sudo firewall-cmd --reload
 
 From VM1:
 ```bash
-curl http://192.168.100.11:4000/metrics
-curl http://192.168.100.11:5000/metrics
+curl http://<VM2_IP>:4000/metrics
+curl http://<VM2_IP>:5000/metrics
 ```
 
 If the applications are running on VM2, update `monitoring/prometheus/prometheus.yml` to use the VM2 IP address for the `node_app` and `python_app` targets.
 
 From VM2:
 ```bash
-curl http://192.168.100.10:9090/targets
-curl http://192.168.100.10:3100/metrics
+curl http://<VM1_IP>:9090/targets
+curl http://<VM1_IP>:3100/metrics
 ```

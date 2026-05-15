@@ -24,7 +24,7 @@ Use this checklist to ensure proper setup of your AIOps monitoring stack.
 - [ ] Set `SLACK_WEBHOOK_URL` (get from Slack app settings)
 - [ ] Set `TELEGRAM_TOKEN` (from BotFather)
 - [ ] Set `TELEGRAM_CHAT_ID` (forward message from bot to get ID)
-- [ ] Set `OLLAMA_URL` (e.g., `http://192.168.100.10:11434`)
+- [ ] Set `OLLAMA_URL` (e.g., `http://<VM1_IP>:11434`)
 
 ### Service Startup
 - [ ] Start services: `docker compose up -d --build prometheus grafana loki alertmanager ai-engine`
@@ -66,12 +66,12 @@ Use this checklist to ensure proper setup of your AIOps monitoring stack.
 ## Cross-VM Connectivity
 
 ### From VM1
-- [ ] Test VM2 Node app: `curl http://192.168.100.11:4000/metrics`
-- [ ] Test VM2 Python app: `curl http://192.168.100.11:5000/metrics`
+- [ ] Test VM2 Node app: `curl http://<VM2_IP>:4000/metrics`
+- [ ] Test VM2 Python app: `curl http://<VM2_IP>:5000/metrics`
 
 ### From VM2
-- [ ] Test VM1 Prometheus: `curl http://192.168.100.10:9090/targets`
-- [ ] Test VM1 AI Engine: `curl http://192.168.100.10:8080/health`
+- [ ] Test VM1 Prometheus: `curl http://<VM1_IP>:9090/targets`
+- [ ] Test VM1 AI Engine: `curl http://<VM1_IP>:8080/health`
 
 ## Grafana Setup
 
@@ -134,7 +134,7 @@ Use this checklist to ensure proper setup of your AIOps monitoring stack.
 - [ ] Slack/Telegram notification received from AI Engine
 
 ### Test Log Collection
-- [ ] Generate errors: `curl http://192.168.100.11:4000/api/error`
+- [ ] Generate errors: `curl http://<VM2_IP>:4000/api/error`
 - [ ] Check Loki for error logs
 - [ ] Query in Grafana: `{job="app_logs"} |= "ERROR"`
 - [ ] Results visible on dashboard

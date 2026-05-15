@@ -25,7 +25,7 @@ echo "=========================================="
 
 # Variables
 PROJECT_PATH="/opt/aiops-platform"
-VM1_IP="${1:-192.168.112.130}"
+VM1_IP="${1:-192.168.112.133}"
 REPO_URL="${2:-https://github.com/kuldeeprana2012/aiops-platform.git}"
 
 echo "VM1 IP: $VM1_IP"
@@ -90,7 +90,7 @@ mkdir -p app/node-app/logs app/python-app/logs
 # Update Promtail config for VM1 Loki
 echo ""
 echo "[7b/7] Updating Promtail config for VM1 ($VM1_IP)..."
-sed -i "s|http://loki:3100|http://${VM1_IP}:3100|g" "$PROJECT_PATH/monitoring/promtail/promtail-config.yaml"
+sed -i "s|http://.*:3100/loki/api/v1/push|http://${VM1_IP}:3100/loki/api/v1/push|g" "$PROJECT_PATH/monitoring/promtail/promtail-config.yaml"
 
 # Start services
 cd "$PROJECT_PATH"

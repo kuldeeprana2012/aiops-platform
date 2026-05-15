@@ -50,7 +50,7 @@ bash scripts/setup-vm1.sh 192.168.112.132
 curl -fsSL https://raw.githubusercontent.com/<username>/aiops-platform/main/scripts/setup-vm2.sh | bash
 
 # Or manually:
-bash scripts/setup-vm2.sh
+bash scripts/setup-vm2.sh 192.168.112.133
 ```
 
 ---
@@ -155,7 +155,7 @@ chmod +x scripts/setup-vm1.sh
 
 # Run with VM2 IP as parameter
 # Usage: setup-vm1.sh [VM2_IP] [REPO_URL]
-bash scripts/setup-vm1.sh 192.168.100.11 https://github.com/kuldeeprana2012/aiops-platform.git
+bash scripts/setup-vm1.sh <VM2_IP> https://github.com/kuldeeprana2012/aiops-platform.git
 ```
 
 This script will:
@@ -224,7 +224,7 @@ docker compose logs -f
 #### Run health check
 ```bash
 cd scripts
-bash check-health.sh 192.168.100.10 192.168.100.11
+bash check-health.sh <VM1_IP> <VM2_IP>
 ```
 
 #### Test applications (from VM2)
@@ -411,8 +411,8 @@ cat monitoring/prometheus/prometheus.yml
 ### Can't connect between VMs
 ```bash
 # Test connectivity
-ping 192.168.100.11
-curl http://192.168.100.11:4000/metrics
+ping <VM2_IP>
+curl http://<VM2_IP>:4000/metrics
 
 # Check firewall
 sudo firewall-cmd --list-all
@@ -424,7 +424,7 @@ sudo firewall-cmd --list-all
 curl http://localhost:9090/api/v1/targets | jq
 
 # Verify app endpoints
-curl http://192.168.100.11:4000/metrics
+curl http://<VM2_IP>:4000/metrics
 ```
 
 ### See [Quick Reference](docs/quick-reference.md) for more troubleshooting steps

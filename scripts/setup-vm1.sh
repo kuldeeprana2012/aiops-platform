@@ -104,8 +104,9 @@ fi
 # Update Prometheus targets for VM2
 echo ""
 echo "[7b/8] Updating Prometheus targets for VM2 ($VM2_IP)..."
-sed -i "s|192.168.100.11:4000|${VM2_IP}:4000|g" "$PROJECT_PATH/monitoring/prometheus/prometheus.yml"
-sed -i "s|192.168.100.11:5000|${VM2_IP}:5000|g" "$PROJECT_PATH/monitoring/prometheus/prometheus.yml"
+sed -i "s|targets: \['.*:4000'\]|targets: ['${VM2_IP}:4000']|g" "$PROJECT_PATH/monitoring/prometheus/prometheus.yml"
+sed -i "s|targets: \['.*:5000'\]|targets: ['${VM2_IP}:5000']|g" "$PROJECT_PATH/monitoring/prometheus/prometheus.yml"
+sed -i "s|targets: \['.*:9100'\]|targets: ['${VM2_IP}:9100']|g" "$PROJECT_PATH/monitoring/prometheus/prometheus.yml"
 
 # Step 8: Start services
 echo ""

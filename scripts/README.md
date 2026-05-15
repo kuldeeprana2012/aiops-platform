@@ -13,7 +13,7 @@ bash setup-vm1.sh [VM2_IP] [REPO_URL]
 ```
 
 **Parameters:**
-- `VM2_IP` (optional): IP address of VM2 where applications run. Default: `192.168.100.11`
+- `VM2_IP` (optional): IP address of VM2 where applications run. Default: `192.168.112.132`
 - `REPO_URL` (optional): Git repository URL to clone. Default: prompted
 
 **What it does:**
@@ -161,10 +161,10 @@ bash check-health.sh [VM1_IP] [VM2_IP]
 bash check-health.sh
 
 # Two VM setup
-bash check-health.sh 192.168.100.10 192.168.100.11
+bash check-health.sh <VM1_IP> <VM2_IP>
 
 # Just VM1
-bash check-health.sh 192.168.100.10
+bash check-health.sh <VM1_IP>
 ```
 
 ---
@@ -181,7 +181,7 @@ bash scripts/quick-start.sh
 
 **On VM1:**
 ```bash
-bash scripts/setup-vm1.sh 192.168.100.11 https://github.com/kuldeeprana2012/aiops-platform.git
+bash scripts/setup-vm1.sh <VM2_IP> https://github.com/kuldeeprana2012/aiops-platform.git
 ```
 
 **On VM2:**
@@ -197,7 +197,7 @@ bash simulate-incidents.sh all
 
 ### For Health Checks
 ```bash
-bash scripts/check-health.sh 192.168.100.10 192.168.100.11
+bash scripts/check-health.sh <VM1_IP> <VM2_IP>
 ```
 
 ---

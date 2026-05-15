@@ -23,12 +23,12 @@ Best for: Enterprise, high availability, real scenarios
 
 **VM1 (Monitoring Stack):**
 ```bash
-bash scripts/setup-vm1.sh 192.168.100.11
+bash scripts/setup-vm1.sh <VM2_IP>
 ```
 
 **VM2 (Applications):**
 ```bash
-bash scripts/setup-vm2.sh
+bash scripts/setup-vm2.sh 192.168.112.133
 ```
 
 ⏱️ Time: ~10 minutes total
@@ -138,7 +138,7 @@ kubernetes/                  ← K8s manifests (optional)
 cd /opt/aiops-project
 
 # Run automated setup
-bash scripts/setup-vm1.sh 192.168.100.11
+bash scripts/setup-vm1.sh <VM2_IP>
 ```
 
 **What happens automatically:**
@@ -153,7 +153,7 @@ bash scripts/setup-vm1.sh 192.168.100.11
 
 ```bash
 # From project directory
-bash scripts/check-health.sh 192.168.100.10 192.168.100.11
+bash scripts/check-health.sh 192.168.112.133 <VM2_IP>
 ```
 
 **Output shows:**
@@ -486,7 +486,7 @@ Your complete AIOps platform is configured and ready to deploy.
 ```bash
 bash scripts/quick-start.sh
 # OR
-bash scripts/setup-vm1.sh 192.168.100.11
+bash scripts/setup-vm1.sh <VM2_IP>
 ```
 
 **Then access:**

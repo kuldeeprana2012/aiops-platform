@@ -12,11 +12,11 @@ bash scripts/quick-start.sh
 
 ### Distributed Setup
 ```bash
-# On VM1 (ClientAIlocal - 192.168.112.130)
+# On VM1 (ClientAIlocal - 192.168.112.133)
 bash scripts/setup-vm1.sh 192.168.112.132
 
 # On VM2 (ServerAIlocal - 192.168.112.132)
-bash scripts/setup-vm2.sh 192.168.112.130
+bash scripts/setup-vm2.sh 192.168.112.133
 ```
 
 ---
@@ -121,7 +121,7 @@ bash scripts/check-health.sh localhost localhost
 
 ### Check with specific VMs
 ```bash
-bash scripts/check-health.sh 192.168.100.10 192.168.100.11
+bash scripts/check-health.sh <VM1_IP> <VM2_IP>
 ```
 
 ### Manual endpoint checks
@@ -212,8 +212,8 @@ sudo firewall-cmd --list-ports
 ### Can't connect between VMs
 ```bash
 # Test connectivity
-ping 192.168.100.10
-curl http://192.168.100.10:9090/metrics
+ping <VM1_IP>
+curl http://<VM1_IP>:9090/metrics
 
 # Check firewall
 sudo firewall-cmd --list-all
